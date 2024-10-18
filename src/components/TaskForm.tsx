@@ -7,6 +7,8 @@ interface TaskFormProps {
   userId: string | null; // User ID
 }
 
+
+
 const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, token, userId }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -19,19 +21,18 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, token, userId }) => {
     const newTask: Task = {
       title,
       description,
-      dueDate: new Date(dueDate), // Convert due date to Date object
+      dueDate: dueDate,
       completed,
-      // No need to include userId here, it's added in the AddTask component
-    }; // Adjust according to your Task type
+    };
 
-    onSubmit(newTask); // Call the onSubmit function passed from props
+    onSubmit(newTask);
 
-    // Reset form fields after submission
     setTitle("");
     setDescription("");
     setDueDate("");
     setCompleted(false);
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
