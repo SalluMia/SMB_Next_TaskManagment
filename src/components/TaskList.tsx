@@ -30,7 +30,7 @@ const TaskList: React.FC<TaskListProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false); // State for delete confirmation modal
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const handleDelete = async (id: string) => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -39,7 +39,7 @@ const TaskList: React.FC<TaskListProps> = ({
     }
 
     try {
-      const res = await fetch(`/api/tasks/${id}`, {
+      const res = await fetch(`${apiUrl}/api/tasks/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

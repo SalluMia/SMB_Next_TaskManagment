@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [totalPages, setTotalPages] = useState(0); // Total pages state
   const [isDarkTheme, setIsDarkTheme] = useState(false); // State for theme (example)
   const [user, setUser] = useState<{ id: string } | null>(null); // User state
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const userInfo = localStorage.getItem("user");
@@ -37,7 +37,7 @@ const Dashboard = () => {
   }, [router, currentPage]); // Add currentPage as a dependency
 
   const fetchTasks = async (token: string, page: number) => {
-    const res = await fetch(`/api/tasks?page=${page}`, {
+    const res = await fetch(`${apiUrl}/api/tasks?page=${page}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -64,7 +64,7 @@ const Dashboard = () => {
   const handleAddTask = async (task: Task) => {
     if (!token) return;
 
-    const res = await fetch("/api/tasks", {
+    const res = await fetch(`${apiUrl}/api/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

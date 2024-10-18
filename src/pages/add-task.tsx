@@ -9,7 +9,7 @@ const AddTask = () => {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null); // State for userId
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || '{}'); // Parsing user object
@@ -26,7 +26,7 @@ const AddTask = () => {
   const handleAddTask = async (task: Task) => {
     if (!token || !userId) return; // Check both token and userId
 
-    const res = await fetch("/api/tasks", {
+    const res = await fetch(`${apiUrl}/api/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

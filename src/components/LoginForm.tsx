@@ -13,12 +13,13 @@ const LoginForm = ({ setShowLogin, notifyError, notifySuccess }: LoginFormProps)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const { darkMode } = useTheme(); // Access the dark mode state
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch(`${apiUrl}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

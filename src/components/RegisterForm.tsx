@@ -15,11 +15,11 @@ const RegisterForm = ({ setShowLogin , notifyError, notifySuccess} :RegisterForm
   const [username, setusername] = useState('');
   const router = useRouter();
   const { darkMode } = useTheme(); // Access the dark mode state
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const handleSubmit = async (e: React.FormEvent) => {
     console.log('hit')
     e.preventDefault();
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch(`${apiUrl}/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

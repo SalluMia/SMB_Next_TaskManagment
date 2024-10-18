@@ -12,7 +12,7 @@ interface EditTaskModalProps {
 
 const EditTaskModal: React.FC<EditTaskModalProps> = ({ task, onClose, fetchTasks, isDarkTheme }) => {
   const [formData, setFormData] = React.useState<Task>(task);
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -27,7 +27,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ task, onClose, fetchTasks
     }
 
     try {
-      const res = await fetch(`/api/tasks/${task._id}`, {
+      const res = await fetch(`${apiUrl}/api/tasks/${task._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
