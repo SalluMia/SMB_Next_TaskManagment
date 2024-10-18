@@ -4,8 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '../context/ThemeContext';
 import toast, { Toaster } from 'react-hot-toast';
-
-const LoginForm = ({ setShowLogin }: { setShowLogin: (value: boolean) => void }) => {
+interface LoginFormProps {
+    setShowLogin: (value: boolean) => void;
+    notifyError: (message: string) => void;
+    notifySuccess: (message: string) => void;
+  }
+const LoginForm = ({ setShowLogin, notifyError, notifySuccess }: LoginFormProps) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -29,14 +33,13 @@ const LoginForm = ({ setShowLogin }: { setShowLogin: (value: boolean) => void })
       // Store the token and user info in localStorage
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));  // Store user info as a string
-
-      toast.success('Login Successfully');
+      notifySuccess('Login Successfully');
 
       // Navigate to the dashboard
       router.push('/dashboard');
     } else {
       console.error('Login failed');
-      toast.error('Login failed');
+      notifyError( 'Login failed');
     }
   };
 

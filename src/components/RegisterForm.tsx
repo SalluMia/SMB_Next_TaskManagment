@@ -4,8 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '../context/ThemeContext';
 import toast, { Toaster } from 'react-hot-toast';
-
-const RegisterForm = ({ setShowLogin }: { setShowLogin: (value: boolean) => void }) => {
+interface RegisterFormProps {
+    setShowLogin: (value: boolean) => void;
+    notifyError: (message: string) => void;
+    notifySuccess: (message: string) => void;
+  }
+const RegisterForm = ({ setShowLogin , notifyError, notifySuccess} :RegisterFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setusername] = useState('');
@@ -25,10 +29,11 @@ const RegisterForm = ({ setShowLogin }: { setShowLogin: (value: boolean) => void
 
     if (response.ok) {
       // Registration was successful
-      toast.success('User Registered successfully')
+      notifySuccess('User Registered successfully')
       setShowLogin(true); // Navigate to login form
     } else {
       console.error('Registration failed');
+      notifyError('Registration failed')
     }
   };
 
