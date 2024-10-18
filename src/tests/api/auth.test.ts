@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../src/app'; // Import your Next.js app (adjust accordingly)
+import app from '../../../src/app';
 
 describe('Auth API Tests', () => {
   it('should register a new user successfully', async () => {

@@ -1,9 +1,8 @@
 import request from 'supertest';
-import app from '../../src/app'; // Adjust path to your app
+import app from '../../../src/app'; // Adjust path to your app
 let token: string;
 
 beforeAll(async () => {
-  // Login to get a token for authorization in task-related API tests
   const res = await request(app)
     .post('/api/auth/login')
     .send({
