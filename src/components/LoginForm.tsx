@@ -19,7 +19,7 @@ const LoginForm = ({ setShowLogin, notifyError, notifySuccess }: LoginFormProps)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch(`${apiUrl}/api/auth/login`, {
+    const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
