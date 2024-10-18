@@ -19,6 +19,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, token, userId }) => {
     e.preventDefault();
 
     const newTask: Task = {
+      _id: Math.random().toString(36).substr(2, 9),
       title,
       description,
       dueDate: dueDate,

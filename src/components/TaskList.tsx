@@ -53,7 +53,7 @@ const TaskList: React.FC<TaskListProps> = ({
       toast.success("Task deleted successfully.");
       fetchTasks(); // Refresh tasks after deletion
     } catch (error) {
-      toast.error(error.message || "An error occurred while deleting the task.");
+      toast.error("An error occurred while deleting the task.");
     }
   };
 
@@ -148,7 +148,7 @@ const TaskList: React.FC<TaskListProps> = ({
 
       {/* Modal for editing task */}
       {isModalOpen && selectedTask && (
-        <EditTaskModal task={selectedTask} onClose={closeModal} fetchTasks={fetchTasks} />
+        <EditTaskModal task={selectedTask} onClose={closeModal} fetchTasks={fetchTasks} isDarkTheme={isDarkTheme} />
       )}
 
       {/* Confirmation Modal for Deletion */}

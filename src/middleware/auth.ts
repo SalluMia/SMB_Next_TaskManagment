@@ -1,4 +1,3 @@
-// src/middleware.ts
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
@@ -8,7 +7,10 @@ export function middleware(request: NextRequest) {
 
   // Protect the dashboard route
   if (pathname.startsWith('/dashboard')) {
-    const token = request.cookies.get('token'); // Assuming you store the token in cookies
+    const tokenCookie = request.cookies.get('token'); // Get the cookie object
+
+    // Check if the token exists and extract its value
+    const token = tokenCookie ? tokenCookie.value : null; // Extract the value from the RequestCookie
 
     if (!token) {
       return NextResponse.redirect(new URL('/', request.url));

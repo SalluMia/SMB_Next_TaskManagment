@@ -12,13 +12,23 @@ const Dashboard = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [token, setToken] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false); // Local state to manage form visibility
-  const [currentPage, setCurrentPage] = useState(1); // Add current page state
-  const [totalPages, setTotalPages] = useState(0); // Add total pages state
+  const [currentPage, setCurrentPage] = useState(1); // Current page state
+  const [totalPages, setTotalPages] = useState(0); // Total pages state
   const [isDarkTheme, setIsDarkTheme] = useState(false); // State for theme (example)
+  const [user, setUser] = useState<{ id: string } | null>(null); // User state
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
+    const userInfo = localStorage.getItem("user");
+
     setToken(storedToken);
+
+    // Parse the userInfo string to get the user object
+    if (userInfo) {
+      const parsedUser = JSON.parse(userInfo);
+      setUser(parsedUser); // Set the user object
+    }
+
     if (storedToken) {
       fetchTasks(storedToken, currentPage);
     } else {
@@ -93,7 +103,11 @@ const Dashboard = () => {
 
       {/* Conditionally render TaskForm or TaskList */}
       {showForm ? (
-        <TaskForm onSubmit={handleAddTask} />
+        <TaskForm
+          onSubmit={handleAddTask}
+          token={token}  // Pass the token here
+          userId={user?.id || null} // Use user?.id safely
+        />
       ) : (
         <TaskList
           tasks={tasks}
