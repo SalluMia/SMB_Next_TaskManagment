@@ -1,6 +1,7 @@
 // src/components/EditTaskModal.tsx
 import React from 'react';
 import { Task } from '../types/task';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface EditTaskModalProps {
   task: Task;
@@ -21,7 +22,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ task, onClose, fetchTasks
     e.preventDefault();
     const token = localStorage.getItem('token');
     if (!token) {
-      alert("You are not authorized to edit tasks.");
+      toast.success("You are not authorized to edit tasks.");
       return;
     }
 
@@ -36,13 +37,13 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ task, onClose, fetchTasks
       });
 
       if (!res.ok) {
-        throw new Error('Failed to update the task.');
+        toast.error('Failed to update the task.');
       }
 
       onClose();
       fetchTasks(); // Fetch tasks to update the list
     } catch (error) {
-      alert(error.message || "An error occurred while updating the task.");
+      toast.error("An error occurred while updating the task.");
     }
   };
 
@@ -80,6 +81,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ task, onClose, fetchTasks
           </div>
         </form>
       </div>
+      <Toaster/>
     </div>
   );
 };
