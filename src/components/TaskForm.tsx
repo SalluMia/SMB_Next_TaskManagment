@@ -23,6 +23,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, token, userId }) => {
       description,
       dueDate: dueDate,
       completed,
+      user: userId || "",
     };
 
     onSubmit(newTask);
